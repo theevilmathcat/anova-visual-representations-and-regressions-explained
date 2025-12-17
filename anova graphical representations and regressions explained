@@ -1,52 +1,34 @@
-# Notes on Visual Representations of ANOVA and ANCOVA  
-## (and Drug Dealers Explaining ANOVA & ANCOVA Regression Models)
+# Notes on visual representations of ANOVA and ANCOVA and Drug Dealers explaining ANOVA and ANCOVA Regression models.
 
----
+# Graphical representations
+ANOVA (and linear regression) NEVER produces a cube, sphere, or curved surface.
+Even with interactions, the model is still linear in the parameters.
 
-## Graphical Representations
+What geometry does ANOVA actually produce?
 
-**ANOVA (and linear regression) NEVER produces a cube, sphere, or curved surface.**  
-Even with interactions, the model is still **linear in the parameters**.
+## 1️⃣ 1-way ANOVA
+**Geometry**: Horizontal lines  
+One horizontal line per group (each line is the group mean).  
+Together: a step function is not a smooth line like in linear regression because we have categorical predictors (on-off switches).
 
-### What geometry does ANOVA actually produce?
+## 2️⃣ 2-way ANOVA (no interaction)
+**Geometry**: One single flat plane
 
-### 1️⃣ 1-Way ANOVA
-**Geometry:** Horizontal lines  
+## 3️⃣ 2-way ANOVA with interaction
+**Geometry**: One single tilted plane
 
-- One horizontal line per group (each line is the group mean)
-- Together, these form a **step function**
-- Not a smooth line like simple linear regression because predictors are **categorical (on/off)**
+# Regressions explanations
 
----
-
-### 2️⃣ 2-Way ANOVA (No Interaction)
-**Geometry:** One single flat plane  
-
-- Effects add together
-- Lines are parallel across factor levels
-
----
-
-### 3️⃣ 2-Way ANOVA (With Interaction)
-**Geometry:** One single tilted plane  
-
-- Slopes differ by factor level
-- Still flat — **no curvature**
-
----
-
-# Regression Explanations
-
-## ANOVA as Regression (No College Mambo-Jambo)
+# ANOVA as Regression (No College Mambo-Jambo)
 
 This document explains **why Minitab prints a regression equation for ANOVA**, using two concrete examples:
 
-1. **1-Way ANOVA** – drug dealers and time spent selling on the streets  
-2. **2-Way ANOVA** – time of day × store, predicting junkie footfall  
-   - without interaction  
-   - with interaction  
+1. **1-way ANOVA** – drug dealers and time spent selling on the streets
+2. **2-way ANOVA** – time of day × store, predicting junkie footfall
+   * first **without interaction**
+   * then **with interaction**
 
-**Key idea:**
+The key idea throughout:
 
 > **ANOVA is just linear regression with on/off switches (dummy variables).**
 
@@ -54,139 +36,101 @@ This document explains **why Minitab prints a regression equation for ANOVA**, u
 
 ## Example 1: 1-Way ANOVA (Drug Dealers)
 
-### Response Variable
-- Time spent on the streets selling
+**Response variable:**
+* Time spent on the streets selling
 
-### Factor
-- Dealer (3 levels): A, B, C
+**Factor:**
+* Dealer (3 levels): A, B, C
 
----
+### Step 1: Choose a reference group
+Minitab automatically picks one level as the baseline.
+* **Dealer A = reference**
 
-### Step 1: Choose a Reference Group
-
-Minitab automatically selects a baseline.
-
-- **Dealer A = reference**
-
----
-
-### Step 2: Create Dummy Variables (Switches)
+### Step 2: Create dummy variables (switches)
 
 | Dealer | Dealer B | Dealer C |
-|------|----------|----------|
-| A    | 0        | 0        |
-| B    | 1        | 0        |
-| C    | 0        | 1        |
+|--------|----------|----------|
+| A      | 0        | 0        |
+| B      | 1        | 0        |
+| C      | 0        | 1        |
 
-Dealer A has no switch — it is the baseline.
+Dealer A has no switch — that's the baseline.
 
----
-
-### Step 3: Regression Equation
-
+### Step 3: Regression equation
 $$
 \text{Time} = \beta_0 + \beta_1(\text{Dealer B}) + \beta_2(\text{Dealer C})
 $$
 
----
-
-### Step 4: What the Coefficients Mean
-
-- $\beta_0$ = mean time for **Dealer A**
-- $\beta_1$ = (Dealer B mean − Dealer A mean)
-- $\beta_2$ = (Dealer C mean − Dealer A mean)
-
----
+### Step 4: What the coefficients mean
+* $\beta_0$ = mean time for Dealer A
+* $\beta_1$ = Dealer B mean − Dealer A mean
+* $\beta_2$ = Dealer C mean − Dealer A mean
 
 ### Step 5: Predictions
+* **Dealer A:**  
+  $$\hat{y} = \beta_0$$
 
-- **Dealer A**
-$$
-\hat{y} = \beta_0
-$$
+* **Dealer B:**  
+  $$\hat{y} = \beta_0 + \beta_1$$
 
-- **Dealer B**
-$$
-\hat{y} = \beta_0 + \beta_1
-$$
+* **Dealer C:**  
+  $$\hat{y} = \beta_0 + \beta_2$$
 
-- **Dealer C**
-$$
-\hat{y} = \beta_0 + \beta_2
-$$
-
-**Result:** Each dealer’s fitted value equals its group mean.
+**Result:** each dealer's fitted value equals its group mean.
 
 ---
 
 ## Example 2: 2-Way ANOVA (No Interaction)
 
-### Response Variable
-- Number of junkies (footfall)
+**Response variable:**
+* Number of junkies (footfall)
 
-### Factors
-- Time of day: Morning, Afternoon, Evening  
-- Store: 1, 2, 3, 4, 5
+**Factors:**
+* Time of day: Morning, Afternoon, Evening
+* Store: 1, 2, 3, 4, 5
 
----
-
-### Step 1: Choose Reference Levels
-
-- **Morning** (time reference)
-- **Store 1** (store reference)
+### Step 1: Choose reference levels
+* **Morning** (time reference)
+* **Store 1** (store reference)
 
 These define the baseline condition.
 
----
+### Step 2: Dummy variables
 
-### Step 2: Dummy Variables
-
-#### Time of Day (3 levels → 2 dummies)
-- Afternoon
-- Evening
+#### Time of day (3 levels → 2 dummies)
+* Afternoon
+* Evening
 
 #### Store (5 levels → 4 dummies)
-- Store 2
-- Store 3
-- Store 4
-- Store 5
+* Store 2
+* Store 3
+* Store 4
+* Store 5
 
----
-
-### Step 3: Regression Equation (Additive Model)
-
+### Step 3: Regression equation (additive model)
 $$
-\text{Footfall} =
-\beta_0
-+ \beta_1(\text{Afternoon})
-+ \beta_2(\text{Evening})
-+ \beta_3(\text{Store 2})
-+ \beta_4(\text{Store 3})
-+ \beta_5(\text{Store 4})
-+ \beta_6(\text{Store 5})
+\begin{aligned}
+\text{Footfall} = & \beta_0 \\
+& + \beta_1(\text{Afternoon}) \\
+& + \beta_2(\text{Evening}) \\
+& + \beta_3(\text{Store 2}) \\
+& + \beta_4(\text{Store 3}) \\
+& + \beta_5(\text{Store 4}) \\
+& + \beta_6(\text{Store 5})
+\end{aligned}
 $$
 
----
+### Step 4: Meaning of coefficients
+* $\beta_0$: Mean footfall at **Morning, Store 1**
+* $\beta_1, \beta_2$: Effect of time of day (same for all stores)
+* $\beta_3 - \beta_6$: Difference between Store 1 and Stores 2–5
 
-### Step 4: Meaning of Coefficients
-
-- $\beta_0$  
-  Mean footfall at **Morning, Store 1**
-
-- $\beta_1, \beta_2$  
-  Effect of time of day (same for all stores)
-
-- $\beta_3$ – $\beta_6$  
-  Difference between Store 1 and Stores 2–5
-
----
-
-### Step 5: Prediction Example  
+### Step 5: Prediction example
 **Evening at Store 3**
 
 Switches ON:
-- Evening = 1
-- Store 3 = 1
+* Evening = 1
+* Store 3 = 1
 
 $$
 \hat{y} = \beta_0 + \beta_2 + \beta_4
@@ -194,70 +138,48 @@ $$
 
 ---
 
-## Example 3: 2-Way ANOVA (With Interaction)
+## Example 3: 2-Way ANOVA **With Interaction**
 
 Now we allow **time effects to differ by store**.
 
----
+### Step 1: Same main-effect dummies
+* Afternoon, Evening
+* Store 2, Store 3, Store 4, Store 5
 
-### Step 1: Main-Effect Dummies
-- Afternoon, Evening
-- Store 2, Store 3, Store 4, Store 5
-
----
-
-### Step 2: Interaction Dummies
-
+### Step 2: Add interaction dummies
 Interactions are **products of switches**:
+* Afternoon × Store 2
+* Afternoon × Store 3
+* …
+* Evening × Store 5
 
-- Afternoon × Store 2  
-- Afternoon × Store 3  
-- …  
-- Evening × Store 5  
+(Each says: "this specific combo gets its own adjustment.")
 
-Each says:  
-> *“This specific combination gets its own adjustment.”*
-
----
-
-### Step 3: Regression Equation (With Interaction)
-
+### Step 3: Regression equation (with interaction)
 $$
 \begin{aligned}
-\text{Footfall} =\;
-&\beta_0
-+ \beta_1(\text{Afternoon})
-+ \beta_2(\text{Evening}) \\
-&+ \beta_3(\text{Store 2})
-+ \beta_4(\text{Store 3})
-+ \beta_5(\text{Store 4})
-+ \beta_6(\text{Store 5}) \\
-&+ \beta_7(\text{Afternoon} \times \text{Store 2})
-+ \cdots
-+ \beta_{14}(\text{Evening} \times \text{Store 5})
+\text{Footfall} = & \beta_0 \\
+& + \beta_1(\text{Afternoon}) + \beta_2(\text{Evening}) \\
+& + \beta_3(\text{Store 2}) + \beta_4(\text{Store 3}) + \beta_5(\text{Store 4}) + \beta_6(\text{Store 5}) \\
+& + \beta_7(\text{Afternoon} \times \text{Store 2}) + \cdots + \beta_{14}(\text{Evening} \times \text{Store 5})
 \end{aligned}
 $$
 
----
-
-### Step 4: What Interaction Coefficients Do
-
+### Step 4: What interaction coefficients do
 They allow:
-- Morning → Afternoon changes to differ **by store**
-- Morning → Evening changes to differ **by store**
+* Morning → Afternoon changes to be **different per store**
+* Morning → Evening changes to be **different per store**
 
-**In plots:** lines are not parallel  
-**In geometry:** the plane is tilted — but still flat
+In plots: lines are **not parallel**.  
+In geometry: the plane is **tilted**, but still flat.
 
----
-
-### Step 5: Prediction Example  
+### Step 5: Prediction example
 **Evening at Store 3**
 
 Switches ON:
-- Evening
-- Store 3
-- Evening × Store 3
+* Evening
+* Store 3
+* Evening × Store 3
 
 $$
 \hat{y} = \beta_0 + \beta_2 + \beta_4 + \beta_{(\text{Evening} \times \text{Store 3})}
@@ -265,12 +187,12 @@ $$
 
 ---
 
-## Final Takeaway (Single-Brain-Cell Approved)
+## Final takeaway (single brain cell approved)
 
-- ANOVA works by **turning categories into switches**
-- Minitab fits a **linear regression** using those switches
-- Group means = intercept + switches
-- Interaction = **extra switches for combinations**
-- No curves unless you explicitly add nonlinear terms
+* ANOVA works by **turning categories into switches**
+* Minitab fits a **linear regression** using those switches
+* Group means = intercept + switches
+* Interaction = **extra switches for combinations**
+* No curves unless you explicitly add nonlinear terms
 
 > **ANOVA tables test the switches. Regression equations show how the switches add up.**
