@@ -57,24 +57,23 @@ Minitab automatically picks one level as the baseline.
 Dealer A has no switch — that's the baseline.
 
 ### Step 3: Regression equation
-$$
-\text{Time} = \beta_0 + \beta_1(\text{Dealer B}) + \beta_2(\text{Dealer C})
-$$
+Time = β₀ + β₁(Dealer B) + β₂(Dealer C)
+
 
 ### Step 4: What the coefficients mean
-* $\beta_0$ = mean time for Dealer A
-* $\beta_1$ = Dealer B mean − Dealer A mean
-* $\beta_2$ = Dealer C mean − Dealer A mean
+* β₀ = mean time for Dealer A
+* β₁ = Dealer B mean − Dealer A mean
+* β₂ = Dealer C mean − Dealer A mean
 
 ### Step 5: Predictions
 * **Dealer A:**  
-  $$\hat{y} = \beta_0$$
+  ŷ = β₀
 
 * **Dealer B:**  
-  $$\hat{y} = \beta_0 + \beta_1$$
+  ŷ = β₀ + β₁
 
 * **Dealer C:**  
-  $$\hat{y} = \beta_0 + \beta_2$$
+  ŷ = β₀ + β₂
 
 **Result:** each dealer's fitted value equals its group mean.
 
@@ -108,22 +107,19 @@ These define the baseline condition.
 * Store 5
 
 ### Step 3: Regression equation (additive model)
-$$
-\begin{aligned}
-\text{Footfall} = & \beta_0 \\
-& + \beta_1(\text{Afternoon}) \\
-& + \beta_2(\text{Evening}) \\
-& + \beta_3(\text{Store 2}) \\
-& + \beta_4(\text{Store 3}) \\
-& + \beta_5(\text{Store 4}) \\
-& + \beta_6(\text{Store 5})
-\end{aligned}
-$$
+Footfall = β₀
++ β₁(Afternoon)
++ β₂(Evening)
++ β₃(Store 2)
++ β₄(Store 3)
++ β₅(Store 4)
++ β₆(Store 5)
+
 
 ### Step 4: Meaning of coefficients
-* $\beta_0$: Mean footfall at **Morning, Store 1**
-* $\beta_1, \beta_2$: Effect of time of day (same for all stores)
-* $\beta_3 - \beta_6$: Difference between Store 1 and Stores 2–5
+* β₀: Mean footfall at **Morning, Store 1**
+* β₁, β₂: Effect of time of day (same for all stores)
+* β₃ – β₆: Difference between Store 1 and Stores 2–5
 
 ### Step 5: Prediction example
 **Evening at Store 3**
@@ -132,9 +128,8 @@ Switches ON:
 * Evening = 1
 * Store 3 = 1
 
-$$
-\hat{y} = \beta_0 + \beta_2 + \beta_4
-$$
+ŷ = β₀ + β₂ + β₄
+
 
 ---
 
@@ -156,14 +151,11 @@ Interactions are **products of switches**:
 (Each says: "this specific combo gets its own adjustment.")
 
 ### Step 3: Regression equation (with interaction)
-$$
-\begin{aligned}
-\text{Footfall} = & \beta_0 \\
-& + \beta_1(\text{Afternoon}) + \beta_2(\text{Evening}) \\
-& + \beta_3(\text{Store 2}) + \beta_4(\text{Store 3}) + \beta_5(\text{Store 4}) + \beta_6(\text{Store 5}) \\
-& + \beta_7(\text{Afternoon} \times \text{Store 2}) + \cdots + \beta_{14}(\text{Evening} \times \text{Store 5})
-\end{aligned}
-$$
+Footfall = β₀
++ β₁(Afternoon) + β₂(Evening)
++ β₃(Store 2) + β₄(Store 3) + β₅(Store 4) + β₆(Store 5)
++ β₇(Afternoon × Store 2) + ... + β₁₄(Evening × Store 5)
+
 
 ### Step 4: What interaction coefficients do
 They allow:
@@ -180,10 +172,8 @@ Switches ON:
 * Evening
 * Store 3
 * Evening × Store 3
+ŷ = β₀ + β₂ + β₄ + β(Evening × Store 3)
 
-$$
-\hat{y} = \beta_0 + \beta_2 + \beta_4 + \beta_{(\text{Evening} \times \text{Store 3})}
-$$
 
 ---
 
